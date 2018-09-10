@@ -3,7 +3,7 @@
 Plugin Name: Estimated Delivery Date for Woocommerce (Basic)
 Plugin URI: https://www.xadapter.com/product/estimated-delivery-date-plugin-woocommerce/
 Description: Intuitive order delivery date plugin using which you can set delivery dates for your orders based on shipping class and a host of other features.
-Version: 1.3.0
+Version: 1.3.1
 Author: PluginHive
 Author URI: https://www.pluginhive.com/
 License: GPLv2
@@ -73,11 +73,10 @@ if( Ph_Estimated_Delivery_Common::woocommerce_active_check() ) {
 	new Wf_Estimated_Delivery_Setup();
 }
 
-
 require 'plugin-update-checker-4.4/plugin-update-checker.php';
 $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-	'http://example.com/path/to/details.json',
-	__FILE__, //Full path to the main plugin file or functions.php.
+	'https://github.com/varun-pluginhive/estimated-delivery-woocommerce/',
+	__FILE__,
 	'estimated-delivery-woocommerce'
 );
 error_log(plugin_dir_url(__FILE__));
