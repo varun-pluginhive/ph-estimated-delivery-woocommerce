@@ -1,0 +1,171 @@
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+class Wf_Estimated_Delivery {
+	public function __construct() {
+
+	}
+
+	static function wf_estimated_delivery_product_page(){		
+		global $product;
+		$test = new WC_Shipping;
+        $shipping_classes = $test->get_shipping_classes();
+	    $class_id = $product->get_shipping_class_id();
+	    for ($i=0; $i < count($shipping_classes); $i++) { 
+	    	if($shipping_classes[$i]->term_id === $class_id)
+	    	{
+	    		$product_shipping_class = $shipping_classes[$i]->slug;
+	    		break;
+	    	}
+	    }
+	    $shipping_class_dates = get_option('wf_estimated_delivery_shipping_class');
+	    $product_shipping_class_min_date = 0;
+	    foreach ( $shipping_class_dates as $id => $value ) {
+            if($shipping_class_dates[$id]['id'] == $product_shipping_class)
+            {
+            	$product_shipping_class_min_date = $shipping_class_dates[$id]['min_date'];
+            }
+        }
+	    $estimated_delivery = get_option('wf_estimated_delivery_min_delivery_days');
+	    $estimated_delivery += $product_shipping_class_min_date;
+	    $text = "Estimated delivery by ".wf_get_delivery_date($estimated_delivery);
+
+		echo $text;
+	}
+
+	static function wf_estimated_delivery_cart_page(){
+		global $woocommerce;
+    	$cart_items = $woocommerce->cart->get_cart();
+    	foreach ($cart_items as $cart_item) {
+            $product_shipping_class [] = $cart_item['data']->get_shipping_class();
+        }
+      	for ($i=0; $i < count($product_shipping_class) ; $i++) { 
+
+		    $shipping_class_dates = get_option('wf_estimated_delivery_shipping_class');
+		    $product_shipping_class_min_date = 0;
+		    foreach ( $shipping_class_dates as $id => $value ) {
+		        if($shipping_class_dates[$id]['id'] == $product_shipping_class[$i])
+		        {
+		        	$product_shipping_class_min_date = $shipping_class_dates[$id]['min_date'];
+		        }
+		    }
+		    $estimated_delivery = get_option('wf_estimated_delivery_min_delivery_days') + $product_shipping_class_min_date;;
+		    $est[] = $estimated_delivery;
+	    }
+	    $test = '';
+	    if(count($est)>1)
+	    {
+		    for ($i=0; $i < count($est)-1; $i++) { 
+		    	if($est[$i]>$est[$i+1])
+		    	$test=$est[$i];
+		    	else
+		    	$test=$est[$i+1];
+		    	
+		    }
+		}
+		else{
+				$test=$est[0];
+		}
+		echo '<tr><th>Estimated Delivery</th><td>' . wf_get_delivery_date($test)  . '</td></tr>';
+	}
+
+	static function wf_estimated_delivery_checkout_page(){
+		if(isset($_POST["country"])){
+			global $woocommerce;
+	    	$cart_items = $woocommerce->cart->get_cart();
+	    	foreach ($cart_items as $cart_item) {
+	            $product_shipping_class [] = $cart_item['data']->get_shipping_class();
+	        }
+	      	for ($i=0; $i < count($product_shipping_class) ; $i++) { 
+			    $shipping_class_dates = get_option('wf_estimated_delivery_shipping_class');
+			    $product_shipping_class_min_date = 0;
+			    foreach ( $shipping_class_dates as $id => $value ) {
+			        if($shipping_class_dates[$id]['id'] == $product_shipping_class[$i])
+			        {
+			        	$product_shipping_class_min_date = $shipping_class_dates[$id]['min_date'];
+			        }
+			    }
+			    $estimated_delivery = get_option('wf_estimated_delivery_min_delivery_days') + $product_shipping_class_min_date;;
+			    $est[] = $estimated_delivery;
+		    }
+		    $test = '';
+		    if(count($est)>1)
+		    {
+			    for ($i=0; $i < count($est)-1; $i++) { 
+			    	if($est[$i]>$est[$i+1])
+			    	$test=$est[$i];
+			    	else
+			    	$test=$est[$i+1];
+			    	
+			    }
+			}
+			else{
+					$test=$est[0];
+			}
+			echo '<tr><th>Estimated Delivery</th><td>'  . wf_get_delivery_date($test)  . '</td></tr>';
+		}
+	}
+
+	static function wf_estimated_delivery_thankyou_page($ids,$order){
+		$ids['wf_ed_order']['label'] = 'Estimated Delivery';
+		$ids['wf_ed_order']['value'] = get_post_meta($order->post->ID, '_est_date', true );
+		return $ids;
+	}
+	static function wf_add_order_meta($order_id){
+		global $woocommerce;
+		global $product;
+    	$cart_items = $woocommerce->cart->get_cart();
+    	foreach ($cart_items as $cart_item) {
+            $product_shipping_class [] = $cart_item['data']->get_shipping_class();
+        }
+      	for ($i=0; $i < count($product_shipping_class) ; $i++) { 
+
+		    $shipping_class_dates = get_option('wf_estimated_delivery_shipping_class');
+		    $product_shipping_class_min_date = 0;
+		    foreach ( $shipping_class_dates as $id => $value ) {
+		        if($shipping_class_dates[$id]['id'] == $product_shipping_class[$i])
+		        {
+		        	$product_shipping_class_min_date = $shipping_class_dates[$id]['min_date'];
+		        }
+		    }
+		    $estimated_delivery = get_option('wf_estimated_delivery_min_delivery_days') + $product_shipping_class_min_date;;
+		    $est[] = $estimated_delivery;
+	    }
+	    $test = '';
+	    if(count($est)>1)
+	    {
+		    for ($i=0; $i < count($est)-1; $i++) { 
+		    	if($est[$i]>$est[$i+1])
+		    	$test=$est[$i];
+		    	else
+		    	$test=$est[$i+1];
+		    	
+		    }
+		}
+		else{
+				$test=$est[0];
+		}
+		update_post_meta( $order_id, '_est_date', wf_get_delivery_date($test));
+	}	
+
+	static function wf_estimated_delivery_admin_order_meta($order){
+		echo '<p class="form-field form-field-wide">';
+		$id = $order->id;
+		$est_date = get_post_meta($id,'_est_date',true);
+		$title = 'Estimated Delivery';
+		echo '<label for="wf_order_date"> '.$title.'</label>';
+		echo ' <input disabled type="text" value="'.$est_date.'" id="wf_order_date" name="_wf_order_date" >';
+		echo '</p>';
+	}
+} 
+
+add_action('wp_ajax_wf_estimated_delivery',array('Wf_Estimated_Delivery' ,'wf_estimated_delivery_checkout_page'));
+add_action( 'woocommerce_admin_order_data_after_order_details', array('Wf_Estimated_Delivery','wf_estimated_delivery_admin_order_meta') );
+add_action( 'woocommerce_checkout_update_order_meta' , array('Wf_Estimated_Delivery', 'wf_add_order_meta' ) , 2 );         
+add_filter( 'woocommerce_get_order_item_totals', array('Wf_Estimated_Delivery', 'wf_estimated_delivery_thankyou_page'),10,2);
+add_action( 'woocommerce_review_order_before_shipping', array('Wf_Estimated_Delivery','wf_estimated_delivery_checkout_page'), 10, 0 );  
+add_action('woocommerce_before_add_to_cart_button',array('Wf_Estimated_Delivery', 'wf_estimated_delivery_product_page'));
+add_action( 'woocommerce_cart_totals_after_order_total', array('Wf_Estimated_Delivery', 'wf_estimated_delivery_cart_page'));

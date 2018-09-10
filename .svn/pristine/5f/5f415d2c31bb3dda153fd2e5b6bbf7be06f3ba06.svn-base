@@ -1,0 +1,67 @@
+<?php
+/**
+ * @package Wooforce Estimated Delivery Plugin Basic
+ */
+/*
+Plugin Name: Wooforce Estimated Delivery Plugin Basic
+Plugin URI: https://www.xadapter.com/product/estimated-delivery-date-plugin-woocommerce/
+Description: Intuitive order delivery date plugin using which you can set delivery dates for your orders based on shipping class and a host of other features.
+Version: 1.0.0
+Author: WooForce
+Author URI: https://www.xadapter.com/vendor/wooforce/
+License: GPLv2
+*/
+
+if ( ! defined( 'ABSPATH' ) ) {
+		exit; // Exit if accessed directly.
+}	
+
+//check if woocommerce exists
+if ( !class_exists( 'woocommerce' ) ) {   
+add_action( 'admin_init', 'wf_estimated_delivery_deactivate' );
+if ( ! function_exists( 'wf_estimated_delivery_deactivate' ) ) {
+function wf_estimated_delivery_deactivate() { 
+	  	if ( !class_exists( 'woocommerce' ) )
+	  	{
+           deactivate_plugins( plugin_basename( __FILE__ ) );
+           wp_safe_redirect( admin_url('plugins.php') );
+	                       
+	  	}
+	}}
+}
+
+
+//Class - To setup the plugin
+class wf_estimated_delivery_setup {
+		//constructor
+	public function __construct() {
+		$this->wf_estimated_delivery_init();
+		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'wf_estimated_delivery_plugin_action_links' ) );
+		//add_action('woocommerce_get_settings_pages',array($this, 'wf_estimated_delivery_initialize'));
+	}
+
+	public function wf_get_settings_url(){
+			return version_compare(WC()->version, '1.0', '>=') ? "wc-settings" : "woocommerce_settings";
+		}
+		
+	//to add settings url near plugin under installed plugin
+	public function wf_estimated_delivery_plugin_action_links( $links ) {
+		$plugin_links = array(
+			'<a href="' . admin_url( 'admin.php?page=' . $this->wf_get_settings_url() . '&tab=wf_estimated_delivery' ) . '">' . __( 'Settings', 'wf_estimated_delivery' ) . '</a>',
+			'<a href="https://www.xadapter.com/category/product/estimated-delivery-date-plugin-for-woocommerce/">' . __( 'Documentation', 'wf_estimated_delivery' ) . '</a>',
+			'<a href="https://www.xadapter.com/support/forum/delivery-estimate-plugin-woocommerce/">' . __( 'Support', 'wf_estimated_delivery' ) . '</a>',
+
+		);
+		return array_merge( $plugin_links, $links );
+	} 
+	//to include the necessary files for plugin
+	public function wf_estimated_delivery_init() {
+		include_once( 'includes/class-wc-settings-page.php' );
+		include_once( 'includes/class-wf-estimated-delivery-settings.php' );
+		include_once( 'includes/func-wf-estimated-delivery-functions.php' );
+		include_once( 'includes/class-wf-estimated-delivery.php' );
+		include_once( 'includes/log.php' );
+	}		
+}	
+
+new wf_estimated_delivery_setup();

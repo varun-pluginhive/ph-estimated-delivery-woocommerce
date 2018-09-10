@@ -1,0 +1,165 @@
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+class Wf_Estimated_Delivery_Settings extends WC_Settings_Page {
+
+    public function __construct() {    
+	    $this->id    = 'wf_estimated_delivery';
+	    $this->label = __( 'Estimated Delivery', 'wf-estimated-delivery' );
+	    add_filter( 'woocommerce_settings_tabs_array',        array( $this, 'add_settings_page' ), 21 );
+	    add_action( 'woocommerce_sections_' . $this->id,      array( $this, 'output_sections' ) );
+
+	    add_action( 'woocommerce_settings_' . $this->id,      array( $this, 'wf_estimated_delivery_output' ) );
+	    add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'wf_estimated_delivery_save' ) );
+
+	    add_action( 'woocommerce_update_options_wf_estimated_delivery', array( $this, 'wf_estimated_delivery_update_settings') );
+	    add_action('woocommerce_admin_field_shipping_class',array( $this, 'generate_shipping_class_html'));
+        add_action( 'current_screen', array( $this,'wf_estimated_delivery_this_screen' ));
+        add_action( 'wp_footer', array( $this, 'wf_estimated_delivery_scripts' ) );	    	
+	}
+	
+	public function get_sections() {
+	include_once("market.php");  
+	    $sections = array(
+	        ''         		=> __( 'General Settings', 'wf-estimated-delivery' ),
+	        'wf_shipping_class'         => __( 'Shipping Class', 'wf-estimated-delivery' )  
+	    );	           
+	    return apply_filters( 'woocommerce_get_sections_' . $this->id, $sections );
+	}
+
+	public function wf_estimated_delivery_update_settings( $current_section ) {
+		global $current_section;
+		switch($current_section) {
+			case '':
+				$options = $this->wf_estimated_delivery_get_settings();
+				woocommerce_update_options( $options );
+			case 'wf_shipping_class':
+				$options = $this->wf_estimated_delivery_get_settings();
+				woocommerce_update_options( $options );
+				$shipping_class_dates = get_option('wf_estimated_delivery_shipping_class');
+				break;
+		}
+    }
+
+	public function wf_estimated_delivery_get_settings( $current_section = '' ) {
+		global $current_section;
+		switch($current_section){			
+			case '':
+				$settings = apply_filters( 'wf_estimated_delivery_section1_settings', array(
+				    
+					'date_options_title'	=>	array(
+						'name' => __( 'General Settings', 'wf-estimated-delivery' ),
+						'type' => 'title',
+						'desc' => '',
+						'id'   => 'wf_estimated_delivery_date_options_title',
+					),
+					'record_log'           => array(
+						'title'           => __( 'Record Log', 'wf_address_autocomplete_validation' ),
+						'type'            => 'checkbox',
+						'default'         => 'no',
+						'desc'     => '<br><span style="font-style: italic;font-size:13px;">Enable to get the log generated (input and result) in folder - <br />wordpress\wp-content\uploads\wc-logs</span>',
+						'custom_attributes' => array(
+							'autocomplete' => 'off'),
+						'id'   => 'wf_estimated_delivery_record_log'
+					),
+					'min_delivery_days'	=>	array(
+						'type'     => 'text',
+						'id'       => 'wf_estimated_delivery_min_delivery_days',
+						'name'     => __( 'Minimum Delivery Days', 'wf-estimated-delivery' ),
+						'desc'     => __( '<br>To set the minimum number of delivery dates for all products','wf-estimated-delivery'),
+						'default'  => '0',
+					),				
+					'limit'	=>	array(
+						'type'     => 'text',
+						'id'       => 'wf_estimated_delivery_limit',
+						'desc'     => '<br />Cut Off Time',
+						'class'	   => 'wf_timepick',
+						'name'     => __( 'Time Limit', 'wf-estimated-delivery' ),
+  						'placeholder' => '20:00', //Once changed here value here, change ..delivery-function.php also
+					),
+					'operation_days' => array(
+					    'type'    => 'multiselect',
+						'id'       => 'wf_estimated_delivery_operation_days',
+					    'name'   => __( 'Working Days', 'wf-estimated-delivery' ),
+					    'desc'    => __( '<br />Select the operational days.','wf-estimated-delivery' ),
+					    'class'		=> 'chosen_select',
+						'default' => array('mon','tue','wed','thu','fri'), //If changed here chage func-wf-estimated-delivery-functions.php also.
+					    
+						'options' => array(
+							'mon' => __('Monday','wf-estimated-delivery' ),
+							'tue' => __('Tuesday','wf-estimated-delivery' ),
+							'wed' => __('Wednesday','wf-estimated-delivery' ),
+							'thu' => __('Thursday','wf-estimated-delivery' ),
+							'fri' => __('Friday','wf-estimated-delivery' ),
+							'sat' => __('Saturday','wf-estimated-delivery' ),
+							'sun' => __('Sunday','wf-estimated-delivery' ),
+						)
+					),
+					'date_options_sectionend'	=>	array(
+						'type' => 'sectionend',
+						'id'   => 'wf_estimated_delivery_date_options_sectionend'
+					),			
+				) );
+				break;		
+				case 'wf_shipping_class':
+					$settings = apply_filters( 'wf_estimated_delivery_section3_settings', array(
+						'shipping_class_options_title'	=>	array(
+							'name' => __( 'Shipping Class', 'wf-estimated-delivery' ),
+							'type' => 'title',
+							'desc' => '',
+							'id'   => 'wf_estimated_delivery_shipping_class_options_title',
+						),	
+						'shipping_class'	=>	array(
+						'type'     => 'shipping_class',
+						'id'       => 'wf_estimated_delivery_shipping_class',
+						),			
+						'shipping_class_options_sectionend'	=>	array(
+							'type' => 'sectionend',
+							'id'   => 'wf_estimated_delivery_shipping_class_options_sectionend'
+						),			
+					) );
+					
+					break;
+		}
+		return apply_filters( 'woocommerce_get_settings_' . $this->id, $settings, $current_section );	
+	}
+
+	public function wf_estimated_delivery_output() {
+	    global $current_section;
+	    $settings = $this->wf_estimated_delivery_get_settings( $current_section );
+	    WC_Admin_Settings::output_fields( $settings );
+	}
+
+	public function wf_estimated_delivery_save() {   
+	    global $current_section;  
+	    $settings = $this->wf_estimated_delivery_get_settings( $current_section );
+	    WC_Admin_Settings::save_fields( $settings );
+	}
+
+	//to add the necessary js scripts and css styles
+	public function wf_estimated_delivery_admin_scripts() {
+		
+		wp_enqueue_script( 'wf-settingsAlign-script', plugins_url( '../assests/js/settings.js', __FILE__ ), array( 'jquery' ) );
+		wp_enqueue_script( 'wf-timepicker-script', plugins_url( '../assests/js/jquery.timepicker.js', __FILE__ ), array( 'jquery' ) );
+		wp_enqueue_style( 'wf-timepicker-style', plugins_url( '../assests/css/jquery.timepicker.css', __FILE__ ) );
+	}	
+	public function wf_estimated_delivery_scripts() {
+		if(is_checkout()&&!is_order_received_page()){
+			wp_enqueue_script( 'wf-checkout-script', plugins_url( '../assests/js/checkout.js', __FILE__ ), array( 'jquery' ) );
+		}	
+	}
+
+	public function generate_shipping_class_html() {
+		include( 'html-shipping-class.php' );
+	}
+	public function wf_estimated_delivery_this_screen() {
+	    $currentScreen = get_current_screen();
+   	 	if($currentScreen->id=='woocommerce_page_wc-settings'){
+   	 	
+        add_action( 'admin_enqueue_scripts', array( $this, 'wf_estimated_delivery_admin_scripts' ) );
+   	 	}
+   	 }
+	
+}
+return new Wf_Estimated_Delivery_Settings();

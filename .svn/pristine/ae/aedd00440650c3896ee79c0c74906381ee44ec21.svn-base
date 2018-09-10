@@ -1,0 +1,92 @@
+=== Estimated Delivery Date Plugin for WooCommerce ===
+Contributors: xadapter, aj9795, niwf,mujeebur
+Donate link: 
+Tags: estimated delivery, WooCommerce, order delivery, delivery estimate.
+Requires at least: 3.0.1
+Tested up to: 4.8
+Stable tag: 1.0.2
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+Intuitive order delivery date plugin using which you can set delivery dates for your orders based on shipping class and a host of other features.
+
+== Description ==
+
+= Introduction =
+This plugin aids in setting and displaying estimated delivery dates for your orders and products.
+
+<ul>
+<li>Option to set day's cut-off time.</li>
+<li>Option to select working days of the week.</li>
+<li>Option to set estimated delivery dates based on shipping classes.</li>
+</ul>
+
+Highlights: Estimated Date is displayed on the product page, cart page, checkout page, thank you page, and admin order details page. Best in class estimated delivery plugin in the market.
+
+= How does it work? =
+
+The Estimated Delivery Plugin is easy to configure. In the general settings page, select the working days and set the day's cut-off time. In the Shipping Class settings page, set the estimated delivery dates for all the shipping classes imported from WooCommerce Shipping Classes. Once you are done with configuring, the plugin will calculate and display estimated delivery dates in the mentioned places.
+
+This Plugin also records Estimated Delivery Dates of the order in the admin order details page and the same is added to the order email.
+
+
+<blockquote>
+
+= Premium Version Features =
+<ul>
+ <li>Mark the holidays on which delivery is not possible.</li>
+ <li>Assign delivery date based on shipping zones(the plugin uses the existing woocommerce zones).</li>
+ <li>Change the text of display as per convenience.</li>
+ <li>Choose a host of date formats for display.</li>
+</ul>
+
+For complete list of features and details, Please visit <a rel="nofollow" href="https://www.xadapter.com/product/estimated-delivery-date-plugin-woocommerce/">Estimated Delivery Date Plugin for WooCommerce</a> for more details
+
+</blockquote>
+
+= About XAdapter.com =
+
+XAdapter creates quality WordPress/WooCommerce/WooDiscuz plugins that are easy to use and customize. We are proud to have thousands of customers actively using our plugins across the globe.
+
+== Installation ==
+
+1. Upload the plugin folder to the /wp-content/plugins/ directory.
+2. Activate the plugin through the Plugins menu in WordPress.
+3. That's it ! you can now configure the plugin.
+
+== Frequently Asked Questions ==
+
+= Does your plugin set estimated delivery dates for a group of products? =
+
+Yes. You can do that by using Shipping Classes Settings page.
+
+= Can I select the operational days of the week for estimation? =
+
+Yes. You can select the operational days using the 'Working Days' multi-select field provided in the general settings page.
+
+== Screenshots ==
+
+1. Settings Page
+
+2. Checkout Page
+
+3. Admin Order Details Page 
+
+== Changelog == 
+
+1.0.2
+Minor Content Change.
+
+1.0.1
+Minor Content Change.
+
+1.0.0
+Initial Version
+
+== Upgrade Notice ==
+
+1.0.2
+Minor Content Change.
+
+1.0.1
+Minor Content Change.

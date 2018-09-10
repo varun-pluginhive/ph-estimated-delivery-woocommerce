@@ -1,0 +1,204 @@
+=== WooCommerce Estimated Delivery Date and Time Plugin ===
+Contributors: xadapter, niwf, varun874
+Donate link: 
+Tags: estimated delivery date, delivery date, delivery date and time, delivery estimate, woocommerce
+Requires at least: 3.0.1
+Tested up to: 4.9
+Stable tag: 1.1.4
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+Estimated delivery date and time for your WooCommerce Store orders based on shipping class, shipping method & shipping zones.
+
+== Description ==
+
+= Introduction =
+Our WooCommerce estimated delivery date and time plugin aids in setting and displaying estimated product delivery date for your orders.
+
+<ul>
+<li>Estimated delivery date based on shipping class.</li>
+<li>Configure working days of the week.</li>
+<li>Set the business day's cut-off time.</li>
+<li>Customise the estimated delivery message.</li>
+<li>Customise the estimated delivery date format.</li>
+<li>Set the time limit for accepting deliveries.</li>
+<li>Choose the time zone to calculate delivey date (UTC/Wordpress Time zone).</li>
+</ul>
+
+Highlights: Estimated Delivery Date and time is displayed on the product page, cart page, checkout page, thank you page and admin order details page. 
+
+= How does it work? =
+
+The WooCommerce estimated delivery date plugin provides very intuitive steps to configure the setup. All you have to do is set minimum number of delivery dates for all products, set day’s cut off limit, and select working days of the week, and you are good to go!
+
+In the Shipping Class setting of the plugin, specify the number of delivery days for the desired shipping class. Remember to create shipping classes in the WooCommerce Shipping settings.
+
+Once all settings are configured, the WooCommerce delivery date plugin will estimate and display the date in sections, as mentioned in the earlier part of this description. In addition to this, the delivery date is also mentioned in the order emails. 
+
+<blockquote>
+
+= Premium Version Features =
+<ul>
+ <li>Estimated delivery date based on shipping method.</li>
+ <li>Estimated delivery date based on shipping zone.</li>
+ <li>Define Holidays.</li>
+ <li>Timely compatibility updates and bug fixes.</li>
+ <li>Premium support!</li>
+</ul>
+
+For complete list of features and details, Please visit <a rel="nofollow" href="https://www.xadapter.com/product/estimated-delivery-date-plugin-woocommerce/">Estimated Delivery Date Plugin for WooCommerce</a> for more details
+
+</blockquote>
+
+= How Estimated Delivery Date and Time Calculated? =
+
+Estimated Delivery Date and Time are calculated by taking the estimated shipping date and adding the transit time (the time is taken to transit a package from the inventory location to the destination address). Normally, the transit time is calculated using business days. Holidays are also taken into account when calculating the transit time.
+
+= How to start with Estimated Delivery Date plugin? =
+
+The Estimated Delivery Date and Time plugin is easy to configure. In the general settings page, select the working days and set the day's cut-off time. In the Shipping Class settings page, set the estimated delivery date for all the shipping classes imported from WooCommerce Shipping Classes. Once you are done with configuring, the plugin will calculate and display estimated delivery dates in the mentioned places.
+
+This Plugin also records Estimated Delivery Date of the order in the admin order details page and the same is added to the order email. Premium version will set the estimated delivery date based on Shipping Method and Shipping Zone.
+
+= Why should you setup estimation of delivery dates for your WooCommerce store? =
+Keeping the advantageous features of our WooCommerce estimated delivery date plugin on one side, you should first understand the need, or even the advantage of implementing estimation of product delivery date on your WooCommerce store.
+
+<strong>Customer satisfaction:</strong> One of the major goal in running a business is to cater to the needs of the customers. When customers see the product delivery date on your WooCommerce store, they will have a sense of belief on the store owner (You!). 
+When you setup product delivery dates with our WooCommerce estimated delivery date plugin, your customers will have an overview of when the product will be delivered. Hence, removing the trouble to contact you for the status of the order.
+<strong>Increase in reputation:</strong> When you have a dedicated shipping service delivering shipments on time, it will lead to happy customers. This will help you gain lot of trust from your customers, thus increasing reputation of your business.
+<strong>Increase in sales:</strong> Increase in reputation will lead to increase in sales of your business. Your customers will no longer be disappointed when you sell a fine product, inform them about the delivery date and time, integrate a comprehensive payment gateway and have a dedicated shipping service to deliver the product on time.
+Delivery dates can drive shopping cart abandonment: If you do not specify delivery date, customers might lose interest in shopping on your store. They would want to know when their product will be delivered. Therefore, inability to get their product by a preferred time will cause shopping cart abandonment.
+<strong>Delivery dates based on shipping location:</strong> Based on your customer’s shipping address, the delivery date might differ. Some shipments might need more time to reach, while some lesser than expected. Hence, specifying product delivery date and time can result in more customers purchasing your product.
+
+
+= Few insights on estimated delivery date plugin. =
+Few insights on estimated delivery date based on a survey conducted by UPS and ComScore on “Online Customer Experience”:
+
+Delivery date and time is ranked among top factors affecting online shopping.
+About 60% of online shoppers say that an estimated delivery date is crucial at checkout.
+Around 25 - 30% of online shoppers say they abandon carts, because an estimated delivery date was not provided. 
+A 58% of satisfaction score (among the least of all the aspects involved) was recorded for flexibility of choosing a delivery date.
+The study also says that, customers want the option to expedite delivery, when needed. 
+About 65% are satisfied with all the shipping options that eCommerce companies offer, and the remaining 35% say that the ability to get their order faster (even if they have to pay more) is important.
+
+The bottom line is, implementing WooCommerce estimated delivery date on your store is an important aspect for an effective customer shopping experience, and shouldn’t be ignored.
+
+= About XAdapter.com =
+
+XAdapter creates quality WordPress / WooCommerce plugins that are easy to use and customize. We are proud to have thousands of customers actively using our plugins across the globe.
+
+== Installation ==
+
+1. Upload the plugin folder to the /wp-content/plugins/ directory.
+2. Activate the plugin through the Plugins menu in WordPress.
+
+== Frequently Asked Questions ==
+
+= Does your plugin set an estimated delivery date for a group of products? =
+Yes. You can do that by using Shipping Classes Settings page.
+
+= Is it possible to set a cut off time for accepting deliveries for all working days? =
+Yes, using this plugin, you can easily set a cut off time for each working day. Beyond the cut off time, the deliveries will be scheduled for next working day.
+
+= Can I select the operational days of the week for estimation? =
+Yes. You can select the operational days using the 'Working Days' multi-select field provided on the general settings page.
+
+= I want to exclude delivery for shipper and recipient for certain holidays. Is that possible using the plugin? =
+The basic version does not have this feature. However, this is possible in the premium version of the plugin where you can mark holidays and allow shipping to be skipped for those days.
+
+= Can your plugin be used to show delivery estimates for different shipping methods? =
+The basic version does not have this feature. However, this is possible in the premium version of the plugin where you can provide the delivery estimates for each shipping method.
+
+
+== Screenshots ==
+
+1. Settings Page
+
+2. Checkout Page
+
+3. Admin Order Details Page 
+
+== Changelog == 
+
+1.1.4
+Improvements : Missing Estimated Delivery text on product page
+
+1.1.3
+Fix: Breaking product pages if global variable product is not an object.
+
+1.1.2
+Fix: Breaking product page in same cases.
+
+1.1.1
+Compatible with Wordpress 4.9
+
+1.1.0
+Revamped the plugin.
+
+1.0.8
+Fixed not working in older version of PHP.
+
+1.0.7
+Code Optimized
+
+1.0.6
+Fix: Warnings on cart page on fresh install.
+
+1.0.5
+Bug Fixes
+
+1.0.4
+Bug Fixes : Fixed warning on edit order page
+
+1.0.3
+Marketing Content Added.
+
+1.0.2
+Minor Content Change.
+
+1.0.1
+Minor Content Change.
+
+1.0.0
+Initial Version
+
+== Upgrade Notice ==
+
+1.1.4
+Improvements : Missing Estimated Delivery text on product page
+
+1.1.3
+Fix: Breaking product pages if global variable product is not an object.
+
+1.1.2
+Fix: Breaking product page in same cases.
+
+1.1.1
+Compatible with Wordpress 4.9
+
+1.1.0
+Revamped the plugin.
+
+1.0.8
+Fixed not working in older version of PHP.
+
+1.0.7
+Code Optimized
+
+1.0.6
+Fix: Warnings on cart page on fresh install
+
+1.0.5
+Bug Fixes
+
+1.0.4
+Bug Fixes : Fixed warning on edit order page
+
+1.0.3
+Marketing Content Added.
+
+1.0.2
+Minor Content Change.
+
+1.0.1
+Minor Content Change.

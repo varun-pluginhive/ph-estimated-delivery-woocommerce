@@ -1,0 +1,137 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: estimated-delivery-woocommerce\n"
+"POT-Creation-Date: 2018-05-09 21:52+0530\n"
+"PO-Revision-Date: 2018-05-09 21:52+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/class-wf-estimated-delivery-settings.php:9
+msgid "Estimated Delivery"
+msgstr "Date de livraison estimée"
+
+#: includes/class-wf-estimated-delivery-settings.php:31
+#: includes/class-wf-estimated-delivery-settings.php:56
+msgid "General Settings"
+msgstr "Parametres généraux"
+
+#: includes/class-wf-estimated-delivery-settings.php:32
+#: includes/class-wf-estimated-delivery-settings.php:115
+#: includes/html-shipping-class.php:5
+msgid "Shipping Class"
+msgstr "Classe de livraison"
+
+#: includes/class-wf-estimated-delivery-settings.php:64
+msgid "Minimum Delivery Days"
+msgstr "Livraison minimale"
+
+#: includes/class-wf-estimated-delivery-settings.php:65
+msgid "Enter the minimum number of days for the delivery of all the products."
+msgstr ""
+"Entrez le nombre minimum de jours pour la livraison de tous les produits."
+
+#: includes/class-wf-estimated-delivery-settings.php:80
+msgid "Working Days"
+msgstr "Jours ouvrables"
+
+#: includes/class-wf-estimated-delivery-settings.php:81
+msgid ""
+"Select the working days of the week and according to these days the date of "
+"delivery can be estimated."
+msgstr ""
+"Sélectionnez les jours ouvrables de la semaine et en fonction de ces jours, "
+"la date de livraison peut être estimée."
+
+#: includes/class-wf-estimated-delivery-settings.php:86
+#: includes/class-wf-estimated-delivery-settings.php:171
+msgid "Monday"
+msgstr "Lundi"
+
+#: includes/class-wf-estimated-delivery-settings.php:87
+#: includes/class-wf-estimated-delivery-settings.php:172
+msgid "Tuesday"
+msgstr "Mardi"
+
+#: includes/class-wf-estimated-delivery-settings.php:88
+#: includes/class-wf-estimated-delivery-settings.php:173
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#: includes/class-wf-estimated-delivery-settings.php:89
+#: includes/class-wf-estimated-delivery-settings.php:174
+msgid "Thursday"
+msgstr "Jeudi"
+
+#: includes/class-wf-estimated-delivery-settings.php:90
+#: includes/class-wf-estimated-delivery-settings.php:175
+msgid "Friday"
+msgstr "Vendredi"
+
+#: includes/class-wf-estimated-delivery-settings.php:91
+#: includes/class-wf-estimated-delivery-settings.php:176
+msgid "Saturday"
+msgstr "Samedi"
+
+#: includes/class-wf-estimated-delivery-settings.php:92
+#: includes/class-wf-estimated-delivery-settings.php:177
+msgid "Sunday"
+msgstr "Dimanche"
+
+#: includes/class-wf-estimated-delivery-settings.php:96
+msgid "Record Log"
+msgstr "Enregistrer le journal"
+
+#: includes/class-wf-estimated-delivery-settings.php:99
+msgid "Enable"
+msgstr "Activer"
+
+#: includes/class-wf-estimated-delivery-settings.php:166
+msgid "Shipping Times"
+msgstr "Délais de livraison"
+
+#: includes/class-wf-estimated-delivery.php:17
+msgid "Estimated delivery "
+msgstr "Date de livraison estimée"
+
+#: includes/class-wf-estimated-delivery.php:18
+msgid "Estimated delivery by: "
+msgstr "Date de livraison estimée"
+
+#: includes/html-shipping-class.php:4
+msgid "Id"
+msgstr "Id"
+
+#: includes/html-shipping-class.php:6
+msgid "No. of Days"
+msgstr "Nombre de jours"
+
+#: wf-estimated-delivery.php:25
+msgid ""
+"Is everything fine? You already have the Premium version installed in your "
+"website. For any issues, kindly raise a ticket via <a target='_blank' "
+"href='//support.xadapter.com/'>support.xadapter.com</a>"
+msgstr ""
+"Est-ce que tout va bien? Vous avez déjà installé la version Premium sur "
+"votre site Web. Pour toute question, veuillez lever un ticket via <a "
+"target='_blank' href='//support.xadapter.com/'>support.xadapter.com</a>"
+
+#: wf-estimated-delivery.php:64
+msgid "Settings"
+msgstr "Réglages"
+
+#: wf-estimated-delivery.php:65
+msgid "Documentation"
+msgstr "Documentation"
+
+#: wf-estimated-delivery.php:66
+msgid "Support"
+msgstr "Soutien"

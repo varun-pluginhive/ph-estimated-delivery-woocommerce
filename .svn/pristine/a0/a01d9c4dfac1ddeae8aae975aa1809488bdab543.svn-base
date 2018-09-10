@@ -1,0 +1,52 @@
+<?php 
+if(!function_exists('wf_get_delivery_date')){
+	
+	function wf_get_delivery_date($date) { 
+		$record=get_option( 'wf_estimated_delivery_record_log' );
+		if($record == 'yes')
+		
+		Estimated_Delivery_Log::log_update($date,'input');
+
+		$wf_holidays = array();
+		$wf_workdays = get_option('wf_estimated_delivery_operation_days');
+		$wp_timezone_string = get_option('timezone_string');
+		$wp_timezone_offset = get_option('gmt_offset');
+
+		if ($wp_timezone_string) {
+			$wf_timezone = $wp_timezone_string;
+		} else {
+			$wf_timezone = ini_get('date.timezone');
+		}
+		$cur_day = new DateTime;
+		$cur_day = date_format($cur_day,'D');
+		$cur_day = strtolower($cur_day);
+		$cutOff = get_option('wf_estimated_delivery_limit');
+		list($cut_hrs,$cut_min) = explode(':',$cutOff);
+		$cut_hrs = intval($cut_hrs);
+		$cut_min = intval($cut_min);
+
+		$wf_date = new DateTime;
+		$wf_cut_off = $cutOff;
+		$wf_time = clone $wf_date;
+		$wf_time->setTime($cut_hrs,$cut_min);
+
+		$wf_next_date = clone $wf_date;
+		if ($wf_date >= $wf_time){
+			$wf_next_date->modify('+1 day');				
+		}
+
+		$i = 0;
+		while ($i < $date){
+			$wf_next_date->modify('+1 day');
+			$ndate = strtolower($wf_next_date->format('D'));
+			if (in_array($ndate, $wf_workdays)) {
+				if (in_array($wf_next_date->format('d-m-Y'), $wf_holidays) == false) {
+					$i++;
+				}
+			}
+		}
+		if($record == 'yes')
+		Estimated_Delivery_Log::log_update($wf_next_date->format('MM/DD/YYYY'),'est_date');
+		return $wf_next_date->format('m/d/Y');
+	}
+}

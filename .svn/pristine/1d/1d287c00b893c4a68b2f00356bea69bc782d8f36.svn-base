@@ -1,0 +1,89 @@
+<?php 
+	if ( ! defined( 'ABSPATH' ) ) {
+		exit;
+	}
+
+	if(!function_exists('wf_get_delivery_date')){
+		
+		function wf_get_delivery_date($date) {
+			$default_working_days = array('mon','tue','wed','thu','fri');
+			$day_order = array( 'mon'=>0, 'tue'=>1, 'wed'=>2, 'thu'=>3, 'fri'=>4, 'sat'=>5, 'sun'=>6 );
+
+			$record		= get_option( 'wf_estimated_delivery_record_log' );
+			$record 	= !empty( $record ) ? $record : '';
+						
+			$wf_workdays	= get_option( 'wf_estimated_delivery_operation_days' );
+			$wf_workdays	= !empty( $wf_workdays  ) ? $wf_workdays : $default_working_days ;
+			
+			if($record == 'yes'){
+				Estimated_Delivery_Log::log_update($date,'input');
+			}
+
+			$wp_timezone_string = get_option('timezone_string');
+			$wp_timezone_string = !empty( $wp_timezone_string ) ? $wp_timezone_string : '';
+
+			if ($wp_timezone_string) {
+				$wf_timezone = $wp_timezone_string;
+			} else {
+				$wf_timezone = ini_get('date.timezone');
+			}
+			
+			$cur_day = new DateTime();
+
+			$time_calculate 		= get_option('wf_estimated_delivery_date_time_zone');
+			$time_calculate 		= !empty( $time_calculate ) ? $time_calculate : '';
+
+			$time_zone_calculate 	= $wp_timezone_string;
+			
+			if( $time_calculate === 'gmt' && !empty($time_zone_calculate) )
+			{
+				$tz = new DateTimeZone( $wp_timezone_string );
+				$cur_day->setTimezone($tz);
+			}
+			
+			$cur_day 	= date_format($cur_day,'D');
+			$cur_day 	= strtolower($cur_day);
+
+			$cutOff 	= get_option('wf_estimated_delivery_day_limits'); 
+			$cutOff = $cutOff[ $day_order[$cur_day] ];
+
+			$cutOff 	= !empty( $cutOff ) ? $cutOff : '20:00';
+			
+
+			list( $cut_hrs, $cut_min ) = ( strpos($cutOff , ':') ) ? explode( ':', $cutOff ) : explode( '.', $cutOff );
+			$cut_hrs = intval($cut_hrs);
+			$cut_min = intval($cut_min);
+
+			$wf_date = new DateTime;
+
+			if( $time_calculate === 'gmt' && !empty($time_zone_calculate) )
+			{
+				$tz = new DateTimeZone( $wp_timezone_string );
+				$wf_date->setTimezone($tz);
+			}
+
+			$wf_cut_off = $cutOff;
+			$wf_time = clone $wf_date;
+			$wf_time->setTime($cut_hrs,$cut_min);
+
+			$wf_next_date = clone $wf_date;
+			if ($wf_date >= $wf_time){
+				$wf_next_date->modify('+1 day');				
+			}
+
+			$today_date = $wf_next_date;
+
+			while( !in_array(strtolower(date_format($today_date,'D')),$wf_workdays) )
+			{
+				$today_date = $today_date->modify('+1 day');
+			}
+			$today_date = $today_date->modify("+$date day");
+			$wf_next_date = $today_date;
+
+		$delivery_date_display_format 	= 'd/m/Y';
+		if($record == 'yes'){
+			Estimated_Delivery_Log::log_update( $wf_next_date->format( $delivery_date_display_format ), 'est_date' );
+		}
+		return $wf_next_date->format( $delivery_date_display_format );
+	}
+}
